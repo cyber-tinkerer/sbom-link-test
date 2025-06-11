@@ -1,0 +1,28 @@
+{
+  "name": "sbom-link-test",
+  "version": "1.0.0",
+  "description": "Test repository for SBOM-Link CI/CD integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyber-tinkerer/sbom-link-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cyber-tinkerer/sbom-link-test/issues"
+  },
+  "homepage": "https://github.com/cyber-tinkerer/sbom-link-test#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "express": "^5.1.0",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.8",
+    "moment": "^2.30.1"
+  }
+}
