@@ -1,0 +1,16 @@
+name: SBOM Security Check
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-sbom-link:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Generate SBOM
+      run: echo "✅ SBOM generation would happen here"
+    - name: Mock Security Check
+      run: echo "✅ Mock SBOM-Link analysis complete - Risk Score: 42.5"
