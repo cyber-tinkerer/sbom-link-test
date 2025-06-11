@@ -1,16 +1,16 @@
-name: SBOM Security Check Test
+name: SBOM Security Check
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # Allow manual triggering
+  workflow_dispatch:
 
 jobs:
   test-sbom-link:
     runs-on: ubuntu-latest
-    name: Test SBOM-Link Integration
+    name: SBOM-Link Security Analysis
     
     steps:
     - name: Checkout code
@@ -20,9 +20,7 @@ jobs:
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
         syft . -o cyclonedx-json=sbom.json
-        echo "Generated SBOM:"
-        ls -la sbom.json
-        echo "Components found: $(grep -o '"name"' sbom.json | wc -l)"
+        echo "Generated SBOM with $(grep -o '"name"' sbom.json | wc -l) components"
         
     - name: SBOM-Link Security Check
       id: sbom-check
@@ -31,20 +29,13 @@ jobs:
         sbom-file: 'sbom.json'
         api-key: 'test-key-12345'
         policy-level: 'medium'
-        fail-on-critical: false  # Don't fail during testing
+        fail-on-critical: false
     
-    - name: Show Results
+    - name: Show Security Results
       run: |
-        echo "🛡️ SBOM-Link Results:"
+        echo "��️ SBOM-Link Security Analysis Results:"
         echo "  Risk Score: ${{ steps.sbom-check.outputs.risk-score }}"
         echo "  Critical Components: ${{ steps.sbom-check.outputs.critical-components }}"
         echo "  Overall Result: ${{ steps.sbom-check.outputs.result }}"
         echo ""
-        echo "✅ CI/CD Integration Test Complete!"
-    
-    - name: Upload SBOM Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: software-bill-of-materials
-        path: sbom.json
-        retention-days: 30
+        echo "✅ Supply chain security check complete!"
